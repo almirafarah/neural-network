@@ -1,0 +1,8 @@
+Exploratory tests:
+testing one euroal network with and without the hertbeat signal:
+  equation: x = (1.0 - dt) * x + J * (tanh(x) * dt) + m * (ft(ti) * dt) + mh * (ht(ti) * dt);
+  mh and m were random. 
+  linear least square equation : n = pinv((X + sigma * randn(size(X)))') * (ft_ss)'; % decoding weights
+
+  
+  
