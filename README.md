@@ -1,6 +1,6 @@
 # The effect of the heartbeat on neuronal processing and chaotic neuronal activity
 
-runnerservoir --> implements all the functions that test the parameters. 
+runnerReservoir --> implements all the functions that test the parameters. 
 
 simulate_reservoir --> simulates the reservoir network with the heartbeat wignal 
 
