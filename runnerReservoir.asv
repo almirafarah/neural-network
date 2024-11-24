@@ -512,7 +512,9 @@ end
 
 
 %the effect of the input frequency on the MSe while controllinng for the
-% percentage of neurons that recieve the heartbeat frequency
+% percentage of neurons that recieve the input frequency
+%which percent of the neurons recieve the heartbeat signal not the input, while
+%increasing input frequncy. 
 function MSEtoHBPerandWfreq(N, ft,pulse, m , mh, simtime2,simtime,simtime_len, num_trials,steps,freq ,stepsPer)
     error = zeros(stepsPer,steps);
     g=1.2;
@@ -559,10 +561,7 @@ function MSEtoPerHBandWHfreq(N, ft,pulse,m ,mh, simtime2,simtime,simtime_len, nu
     hold off;   
 end
 
-
-
-%the effect of the heartbeat signal on the MSe while controlling for the
-%connectivity strength
+%change frequency of heartbeat and see if there's change in MSE
 function MSEtowh(N, ft, m , mh, simtime2,simtime,simtime_len, num_trials,steps,freq)
     figure; hold on;
     ft2 = ft;
@@ -598,7 +597,6 @@ function MSEtowh(N, ft, m , mh, simtime2,simtime,simtime_len, num_trials,steps,f
     hold off;
 end
 
-% the average MSE over 1000 identical simulation of the reservoir network.
 function error2 = trials(error,N,g,ft2,ft,pulse, m, mh, simtime2, simtime, simtime_len, false)
     errorinstance = zeros(1,1000);
     parfor i=1:1000
@@ -607,10 +605,6 @@ function error2 = trials(error,N,g,ft2,ft,pulse, m, mh, simtime2, simtime, simti
     error2 = mean(errorinstance);
 end
 
-
-% making a plot of the effect of the input / heartbeat frequency on the MSE
-% (used as helper function for the rest of the functions)to maintain
-% paralization when running the code.
 function errorz = stepsfreqChange(error,z,N,g,ft2,ft, m, mh, simtime2, simtime, simtime_len, steps, changewh, changew)
     if changewh %up wh frequency 
         parfor j = 1:steps
@@ -636,8 +630,6 @@ function errorz = stepsfreqChange(error,z,N,g,ft2,ft, m, mh, simtime2, simtime, 
 
 end
 
-
-%% generating the mean over 1000 identical trials of the reservoir.
 function meanresult = meanresult(N,g,ft2,ft,pulse, m, mh, simtime2, simtime, simtime_len, false)
     errorinstance = zeros(1,1000);
     pulse = heartbeat_signal(simtime,floor(25/4));
@@ -647,9 +639,6 @@ function meanresult = meanresult(N,g,ft2,ft,pulse, m, mh, simtime2, simtime, sim
     meanresult = mean(errorinstance);
 end
 
-% making a plot of the effect of the connectivity strength on the MSE
-% (used as helper function for the rest of the functions) to maintain
-% paralization when running the code.
 function errorg = stepsGchnage(N,g,ft2,ft,pulse, m, mh, simtime2, simtime, simtime_len, false,steps)
     g= 0;
     errorg = zeros(1,steps);
@@ -673,3 +662,17 @@ function graph = MSEtoStrength(N,ft, m, mh, simtime2, simtime, simtime_len,  num
     end
     graph = e;
 end
+%errortest(N,ft,ft,pulse, m, mh, simtime2, simtime, simtime_len,num_trials,freq);
+%disp(num2str(mean(initializeWeights(N,1,0,1,1))));
+%disp(num2str(mean(initializeWeights(N,1,0,1,1))));
+%MSEtoMEAN(N,ft,ft, m, mh, simtime2, simtime, simtime_len,10,freq);
+%MSEtoConnectivityEXcitation(N,ft, simtime2, simtime, simtime_len,  num_trials,freq)
+%[f, e] = simulate_reservoir_network(N,1.1,cos(0.5 * freq * simtime),ft,pulse, m, mh, simtime2, simtime, simtime_len, true);
+
+%reservoir_simulation_noHB(N,cos(0.5 * freq * simtime),cos(0.5 * freq * simtime), m, simtime2, simtime, simtime_len,true );
+
+%MSEtoChaoswithHB(N, ft,pulse, m , mh, simtime2,simtime,simtime_len, num_trials,steps,freq );
+
+%MSEtoAmp(N,ft, m, mh,pulse, simtime2, simtime, simtime_len,num_trials,freq)
+%MSEtoinputStrength(N,ft, m, mh, simtime2, simtime, simtime_len,  num_trials,freq)
+
